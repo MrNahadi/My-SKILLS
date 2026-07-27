@@ -1,0 +1,117 @@
+{
+  "project": "react-todo-app",
+  "branchName": "ralph/todo-app-mvp",
+  "description": "A React + TypeScript todo application with full CRUD operations, local storage persistence, and status-based filtering.",
+  "non_goals": [
+    "Backend/server — all data stays in localStorage",
+    "User authentication or multi-user support",
+    "Drag-and-drop reordering",
+    "Due dates, tags, or priority levels",
+    "Deployment or CI/CD pipeline setup",
+    "End-to-end testing (unit tests only for this batch)"
+  ],
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Bootstrap React + TypeScript project with test harness",
+      "description": "Initialize a new React + TypeScript project using Vite, configure ESLint, and set up Vitest with React Testing Library so future stories have a working test and lint pipeline from day one.",
+      "priority": 1,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Project initialised with Vite React-TS template (npm create vite@latest . -- --template react-ts)",
+        "Dependencies installed (npm install completes without errors)",
+        "Vitest and @testing-library/react are dev dependencies",
+        "A trivial placeholder test exists and passes (npm test)",
+        "npx tsc --noEmit passes with zero errors",
+        "npx eslint . passes with zero errors (ESLint configured for TS + React)",
+        "Dev server starts without errors (verified via npm run dev -- --host)"
+      ]
+    },
+    {
+      "id": "US-002",
+      "title": "Define Todo data model and create in-memory state",
+      "description": "Define the Todo TypeScript interface and implement React state management (useState) for a list of todos, including an AddTodo form that creates new items.",
+      "priority": 2,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Todo interface defined with fields: id (string), title (string), status ('active' | 'completed'), createdAt (string ISO timestamp)",
+        "App renders an input field and an 'Add' button",
+        "Typing a title and clicking Add (or pressing Enter) adds a new todo with status 'active' to the list",
+        "Empty title submission is prevented (button disabled or no-op)",
+        "Newly added todo appears in the rendered list immediately",
+        "Unit test: adding a todo increases the displayed list count by 1",
+        "npx tsc --noEmit && npm test && npx eslint . all pass"
+      ]
+    },
+    {
+      "id": "US-003",
+      "title": "Display todo list with completion toggle and delete",
+      "description": "Render the list of todos with the ability to toggle a todo between active/completed and to delete a todo entirely.",
+      "priority": 3,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Each todo item displays its title and a checkbox reflecting its status",
+        "Clicking the checkbox toggles status between 'active' and 'completed'",
+        "Completed todos have a visible style difference (e.g. line-through text)",
+        "Each todo has a delete button that removes it from the list",
+        "Unit test: toggling a todo changes its status in the rendered output",
+        "Unit test: deleting a todo removes it from the rendered list",
+        "npx tsc --noEmit && npm test && npx eslint . all pass"
+      ]
+    },
+    {
+      "id": "US-004",
+      "title": "Edit existing todo title inline",
+      "description": "Allow users to edit the title of an existing todo by double-clicking it, making the field editable, and saving on Enter or blur.",
+      "priority": 4,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Double-clicking a todo title switches it to an editable input pre-filled with current title",
+        "Pressing Enter or blurring the input saves the new title",
+        "Pressing Escape cancels editing and reverts to the original title",
+        "Empty title on save either reverts or deletes the todo (choose one, document choice)",
+        "Unit test: editing a todo updates its displayed title",
+        "npx tsc --noEmit && npm test && npx eslint . all pass"
+      ]
+    },
+    {
+      "id": "US-005",
+      "title": "Persist todos to localStorage",
+      "description": "Sync the todos array to localStorage on every change, and rehydrate from localStorage on app load, so data survives page refreshes.",
+      "priority": 5,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "On every state change, the full todos array is serialised to localStorage under key 'todos'",
+        "On app mount, todos are loaded from localStorage if the key exists",
+        "If localStorage is empty or missing, the app starts with an empty list (no crash)",
+        "Unit test: mock localStorage, add a todo, verify localStorage.setItem is called with correct data",
+        "Unit test: mock localStorage with pre-existing data, verify todos load on mount",
+        "npx tsc --noEmit && npm test && npx eslint . all pass"
+      ]
+    },
+    {
+      "id": "US-006",
+      "title": "Filter todos by status",
+      "description": "Add filter controls (All / Active / Completed) that show only the matching subset of todos, with a visual indicator of which filter is currently selected.",
+      "priority": 6,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Three filter buttons rendered: 'All', 'Active', 'Completed'",
+        "Default filter is 'All' (shows every todo)",
+        "Clicking 'Active' shows only todos with status 'active'",
+        "Clicking 'Completed' shows only todos with status 'completed'",
+        "Currently active filter button has distinct styling (e.g. bold or highlighted)",
+        "A count of visible items is displayed (e.g. '3 items left')",
+        "Unit test: with mixed todos, selecting 'Active' filter hides completed items",
+        "Unit test: selecting 'Completed' filter hides active items",
+        "npx tsc --noEmit && npm test && npx eslint . all pass"
+      ]
+    }
+  ]
+}

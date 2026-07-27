@@ -1,0 +1,8 @@
+# Progress Log
+
+## Codebase Patterns
+(General, reusable learnings go here — populated as iterations discover them.)
+
+## Iteration Log
+(Append-only. Each entry: date/time, story worked on, outcome, learnings.)
+

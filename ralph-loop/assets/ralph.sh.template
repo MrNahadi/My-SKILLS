@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+TOOL="${1:-claude}"
+MAX_ITER="${2:-10}"
+ITER=0
+
+echo ""
+echo "============================================"
+echo "  Ralph Loop - Starting $MAX_ITER iterations"
+echo "  Tool: $TOOL"
+echo "============================================"
+echo ""
+
+while [ "$ITER" -lt "$MAX_ITER" ]; do
+  ITER=$((ITER + 1))
+  echo ""
+  echo "--- Iteration $ITER of $MAX_ITER ---"
+  echo ""
+
+  PROMPT="Follow the instructions in prompt.md exactly. Do not summarize or describe it. Execute the workflow it describes: read prd.json, pick the next incomplete story, implement it, run quality gates, commit, and update progress. Begin immediately."
+
+  if [ "$TOOL" = "claude" ]; then
+    OUTPUT=$(claude --dangerously-skip-permissions -p "$PROMPT" 2>&1) || true
+  elif [ "$TOOL" = "agy" ]; then
+    OUTPUT=$(agy -p "$PROMPT" 2>&1) || true
+  else
+    echo "[ralph] Unknown tool: $TOOL. Use \"claude\" or \"agy\"."
+    exit 1
+  fi
+
+  echo "--- Iteration $ITER finished, continuing... ---"
+
+  if echo "$OUTPUT" | grep -q '<promise>COMPLETE</promise>'; then
+    echo ""
+    echo "[ralph] All stories complete!"
+    exit 0
+  fi
+done
+
+echo ""
+echo "[ralph] Max iterations reached without completion."
+echo "[ralph] Check prd.json for remaining stories and progress.txt for context."
+exit 1

@@ -1,0 +1,157 @@
+{
+  "project": "Next.js Feature Backlog",
+  "branchName": "ralph/feature-buildout",
+  "description": "Add core application features: authentication, dashboard, settings, API routes, dark mode, search, notifications, and profile page.",
+  "non_goals": [
+    "Payment processing or billing integration",
+    "Third-party OAuth providers (Google, GitHub, etc.) — only email/password auth",
+    "Real-time WebSocket connections for notifications (polling or static is fine)",
+    "Mobile-responsive redesign of existing layouts",
+    "Deployment or CI/CD pipeline configuration",
+    "Database migrations beyond what the chosen ORM generates automatically"
+  ],
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Authentication page with login and signup",
+      "description": "Create a combined auth page at /auth with login and signup forms. Include client-side validation, error display, and redirect to /dashboard on success. Use NextAuth.js with credentials provider storing users in a local JSON file or lightweight DB.",
+      "priority": 1,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Route /auth renders a page with both Login and Sign Up form tabs/toggles",
+        "Sign Up form has fields: name, email, password, confirm password",
+        "Login form has fields: email, password",
+        "Client-side validation: email format, password min 8 chars, passwords match on signup",
+        "On successful login, user is redirected to /dashboard",
+        "On failed login, an error message is displayed inline",
+        "NextAuth session is established and accessible via useSession()",
+        "npx tsc --noEmit passes with no errors"
+      ]
+    },
+    {
+      "id": "US-002",
+      "title": "Protected route middleware",
+      "description": "Add Next.js middleware that redirects unauthenticated users to /auth when they try to access protected routes (/dashboard, /settings, /profile, /notifications).",
+      "priority": 2,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "middleware.ts exists at the project root and exports a config with matcher for protected routes",
+        "Unauthenticated requests to /dashboard, /settings, /profile, /notifications redirect to /auth",
+        "Authenticated requests pass through normally",
+        "The /auth page itself is accessible without authentication",
+        "npx tsc --noEmit passes with no errors"
+      ]
+    },
+    {
+      "id": "US-003",
+      "title": "Dashboard page with summary cards",
+      "description": "Create a /dashboard page that displays summary cards showing placeholder stats (total users, active sessions, recent activity count, system status). Layout uses a responsive CSS grid.",
+      "priority": 3,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Route /dashboard renders a page with at least 4 summary stat cards",
+        "Each card displays a title, a numeric value, and a subtle icon or indicator",
+        "Cards are arranged in a responsive grid (2 cols on mobile, 4 on desktop)",
+        "Page is only accessible when authenticated (redirects to /auth otherwise)",
+        "npx tsc --noEmit passes with no errors"
+      ]
+    },
+    {
+      "id": "US-004",
+      "title": "User profile page",
+      "description": "Create a /profile page that displays the current user's information (name, email, member since date) and allows editing the display name.",
+      "priority": 4,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Route /profile renders with the authenticated user's name, email, and join date",
+        "An 'Edit' button reveals an inline form to change the display name",
+        "Submitting the form calls PUT /api/user/profile and updates the displayed name",
+        "A success toast/message appears after saving",
+        "npx tsc --noEmit passes with no errors"
+      ]
+    },
+    {
+      "id": "US-005",
+      "title": "User API routes (CRUD)",
+      "description": "Create API routes under /api/user for getting and updating the current user's profile data. Data is stored in a local JSON file or lightweight store.",
+      "priority": 5,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "GET /api/user/profile returns the authenticated user's profile as JSON",
+        "PUT /api/user/profile accepts {name} in the body and updates the stored user",
+        "Both endpoints return 401 if the request is not authenticated",
+        "Response shapes are typed with TypeScript interfaces",
+        "npx tsc --noEmit passes with no errors"
+      ]
+    },
+    {
+      "id": "US-006",
+      "title": "Dark mode toggle with persistence",
+      "description": "Add a dark/light mode toggle accessible from the site header. The preference persists in localStorage and respects the system preference as default.",
+      "priority": 6,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "A toggle button in the header switches between dark and light themes",
+        "Theme applies a 'dark' class to the <html> element (Tailwind dark mode strategy)",
+        "Preference is saved to localStorage under key 'theme'",
+        "On first visit with no saved preference, the system preference (prefers-color-scheme) is used",
+        "Page does not flash the wrong theme on reload (use a blocking script or cookie approach)",
+        "npx tsc --noEmit passes with no errors"
+      ]
+    },
+    {
+      "id": "US-007",
+      "title": "Search with command palette",
+      "description": "Add a global search/command palette (Cmd+K / Ctrl+K) that searches across page names and navigates to the selected result.",
+      "priority": 7,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Pressing Ctrl+K (or Cmd+K on Mac) opens a centered modal/dialog",
+        "The dialog has a text input that filters a list of navigable pages in real time",
+        "Selecting a result navigates to that page and closes the dialog",
+        "Pressing Escape closes the dialog",
+        "The component is accessible (focus trapped in dialog, aria attributes present)",
+        "npx tsc --noEmit passes with no errors"
+      ]
+    },
+    {
+      "id": "US-008",
+      "title": "Settings page with notification preferences",
+      "description": "Create a /settings page where users can toggle notification preferences (email notifications on/off, in-app notifications on/off) and save them.",
+      "priority": 8,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Route /settings renders a form with toggle switches for email and in-app notifications",
+        "Current preferences are loaded from GET /api/user/settings on mount",
+        "Toggling and clicking Save calls PUT /api/user/settings with the new values",
+        "A success message confirms the save",
+        "GET and PUT /api/user/settings endpoints exist and return/accept {emailNotifications: bool, inAppNotifications: bool}",
+        "npx tsc --noEmit passes with no errors"
+      ]
+    },
+    {
+      "id": "US-009",
+      "title": "Notifications dropdown",
+      "description": "Add a notifications bell icon in the header that opens a dropdown showing recent notifications (placeholder data). Include a /notifications page listing all notifications.",
+      "priority": 9,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "A bell icon in the header shows an unread count badge when there are unread notifications",
+        "Clicking the bell opens a dropdown with the 5 most recent notifications",
+        "Each notification shows a title, message preview, and relative timestamp",
+        "A 'View all' link in the dropdown navigates to /notifications",
+        "The /notifications page lists all notifications with read/unread styling",
+        "npx tsc --noEmit passes with no errors"
+      ]
+    }
+  ]
+}

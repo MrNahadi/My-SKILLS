@@ -1,0 +1,23 @@
+{
+  "skill_name": "ralph-loop",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to set up a ralph loop for a new React + TypeScript todo app. I want it to have CRUD operations, local storage persistence, and a filter by status. Use Claude Code as the tool.",
+      "expected_output": "Should interview briefly (detect project type from description), generate a prd.json with 4-6 vertically-sliced stories, produce ralph.bat (Windows user), prompt.md with TS quality gates, and progress.txt",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "set up an autonomous loop for my existing Python Flask API — it needs three new endpoints: GET /users, POST /users, DELETE /users/:id. I want to use agy. The repo already has pytest and ruff configured.",
+      "expected_output": "Should detect existing Python project, use pytest + ruff as quality gates, generate 3 stories (one per endpoint), produce ralph.bat, prompt.md with Python gates, respect existing setup",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I want the AI to work through my backlog overnight while I sleep. I have a Next.js app and about 8 features I need added. Can you set that up?",
+      "expected_output": "Should trigger even without mentioning 'ralph' explicitly, interview the user about the 8 features, detect Next.js/TS stack, produce all artifacts with appropriate story count and gates",
+      "files": []
+    }
+  ]
+}

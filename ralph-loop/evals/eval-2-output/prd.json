@@ -1,0 +1,60 @@
+{
+  "project": "Flask API — User Endpoints",
+  "branchName": "ralph/user-endpoints",
+  "description": "Add CRUD endpoints for user management: list users, create a user, and delete a user by ID",
+  "non_goals": [
+    "Authentication or authorization — no auth middleware for these endpoints",
+    "User profile updates (PUT/PATCH) — only GET, POST, DELETE in scope",
+    "Frontend or UI changes",
+    "Database migrations beyond what's needed for a basic users table",
+    "Pagination, filtering, or sorting on the GET endpoint"
+  ],
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "GET /users endpoint returns all users",
+      "description": "As an API consumer, I can retrieve a list of all users so that I can display or process user data.",
+      "priority": 1,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "GET /users returns HTTP 200 with a JSON array of user objects",
+        "Each user object contains at least 'id', 'name', and 'email' fields",
+        "When no users exist, the endpoint returns an empty array []",
+        "A pytest test verifies the 200 response and JSON structure",
+        "ruff check passes with no errors"
+      ]
+    },
+    {
+      "id": "US-002",
+      "title": "POST /users endpoint creates a new user",
+      "description": "As an API consumer, I can create a new user by sending a JSON payload so that users can be added to the system.",
+      "priority": 2,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "POST /users with a JSON body containing 'name' and 'email' creates a user and returns HTTP 201",
+        "The response body contains the created user object including its assigned 'id'",
+        "POST /users with missing required fields returns HTTP 400 with an error message",
+        "A newly created user appears in subsequent GET /users responses",
+        "A pytest test verifies successful creation (201) and validation failure (400)",
+        "ruff check passes with no errors"
+      ]
+    },
+    {
+      "id": "US-003",
+      "title": "DELETE /users/:id endpoint removes a user",
+      "description": "As an API consumer, I can delete a user by their ID so that users can be removed from the system.",
+      "priority": 3,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "DELETE /users/<id> removes the user and returns HTTP 200 with a confirmation message",
+        "DELETE /users/<id> for a non-existent ID returns HTTP 404 with an error message",
+        "After deletion, the user no longer appears in GET /users responses",
+        "A pytest test verifies successful deletion (200) and not-found case (404)",
+        "ruff check passes with no errors"
+      ]
+    }
+  ]
+}

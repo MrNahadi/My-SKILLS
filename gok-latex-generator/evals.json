@@ -1,0 +1,17 @@
+{
+  "skill_name": "gok-latex-generator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a LaTeX report summarizing the findings of the recent Employee Transit Survey. The survey found that 60% of employees spend over 2 hours commuting, leading to increased fatigue. Make sure to use the GoK Devolution structure, with an introduction chapter and a findings chapter. Use the inference block to highlight that the long commute correlates strongly with decreased morning productivity.",
+      "expected_output": "A complete LaTeX report structure with main.tex, chapters/, and the proper structure.tex inclusion, demonstrating the use of the \\begin{inference} block.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Draft a short presentation (4 slides) for the Staff Training Initiative. The presentation should cover the Introduction, Training Needs (where 75% requested digital skills), and the Budget Proposal. Use the GoK beamer theme and ensure the typography is clean sans-serif.",
+      "expected_output": "A beamer presentation file using the sintef theme, with Helvetica typography setup and structured slides.",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "project": "task-tracker-cli",
+  "branchName": "ralph/task-tracker-mvp",
+  "description": "A CLI task tracker with local JSON storage, CRUD operations, and filtering",
+  "non_goals": [
+    "No GUI or web interface",
+    "No cloud sync or multi-user support",
+    "No recurring tasks or calendar integration"
+  ],
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Initialize project with test harness",
+      "description": "Set up the project structure, dependencies, and test framework so subsequent stories can run quality gates",
+      "priority": 1,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "package.json exists with project name and version",
+        "TypeScript is configured (tsconfig.json)",
+        "Jest or Vitest is configured and a sample test passes",
+        "npm test runs without error",
+        "npm run build produces output without error"
+      ]
+    },
+    {
+      "id": "US-002",
+      "title": "Add a task via CLI",
+      "description": "User can add a new task with a title from the command line",
+      "priority": 2,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Running `task add \"Buy groceries\"` creates a task in tasks.json",
+        "Each task has: id (auto-increment), title, status (default: 'todo'), createdAt (ISO timestamp)",
+        "If tasks.json doesn't exist, it's created automatically",
+        "A confirmation message is printed: 'Task added: Buy groceries (id: 1)'"
+      ]
+    },
+    {
+      "id": "US-003",
+      "title": "List all tasks",
+      "description": "User can see all their tasks in a formatted table",
+      "priority": 3,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Running `task list` prints all tasks in a readable table format",
+        "Table shows: ID, Status, Title, Created date",
+        "If no tasks exist, prints 'No tasks yet. Use `task add` to create one.'",
+        "Tasks are sorted by ID ascending"
+      ]
+    },
+    {
+      "id": "US-004",
+      "title": "Mark a task as done",
+      "description": "User can mark a task complete by its ID",
+      "priority": 4,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Running `task done 2` sets task 2's status to 'done'",
+        "A confirmation message is printed: 'Task 2 marked as done'",
+        "If the ID doesn't exist, prints an error: 'Task not found: 2'",
+        "If already done, prints: 'Task 2 is already done'"
+      ]
+    },
+    {
+      "id": "US-005",
+      "title": "Filter tasks by status",
+      "description": "User can list only tasks matching a given status",
+      "priority": 5,
+      "passes": false,
+      "notes": "",
+      "acceptance_criteria": [
+        "Running `task list --status todo` shows only todo tasks",
+        "Running `task list --status done` shows only done tasks",
+        "Invalid status prints: 'Invalid status. Use: todo, done'",
+        "No flag shows all tasks (existing behavior from US-003)"
+      ]
+    }
+  ]
+}
